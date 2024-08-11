@@ -73,7 +73,7 @@
 
 (eval-when (:compile-toplevel :load-toplevel)
   (defvar *basic-keywords*
-    '(canonical indentation text-indentation encoding omit-xml-declaration)))
+    '(canonical indentation text-indentation encoding omit-xml-declaration standalone)))
 
 ;;;; SINK: an xml output sink
 
@@ -94,6 +94,10 @@
                                 :initarg :omit-xml-declaration
                                 :initarg :omit-xml-declaration-p
                                 :accessor sink-omit-xml-declaration-p)
+   (sink-standalone-p :initform nil
+                      :initarg :standalone
+                      :initarg :standalone-p
+                      :accessor sink-standalone-p)
    (encoding :initarg :encoding :reader sink-encoding)))
 
 (defmethod initialize-instance :after ((instance sink) &key)
@@ -173,6 +177,8 @@
          and means UTF-8.}
        @arg[omit-xml-declaration]{Boolean.  If true, no XML declaration
          is written.}
+       @arg[standalone]{Boolean.  If true, the xml-declaration will include
+         `standalone='yes'`
        @return{A serialization sink, i.e. a @class{SAX handler}}
 
        Returns a handler that writes processes SAX events by writing an
@@ -247,7 +253,10 @@
               (sink-omit-xml-declaration-p sink))
     (sink-write-rod #"<?xml version=\"1.0\" encoding=\"" sink)
     (sink-write-rod (rod (sink-encoding sink)) sink)
-    (sink-write-rod #"\"?>" sink)
+    (sink-write-rod #"\"" sink)
+    (when (sink-standalone-p sink)
+      (sink-write-rod #" standalone=\"yes\"" sink))
+    (sink-write-rod #"?>" sink)
     (sink-write-rune #/U+000A sink)))
 
 (defmethod fxml.sax:start-dtd ((sink sink) name public-id system-id)

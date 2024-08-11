@@ -202,7 +202,6 @@ qname:                 #\"xmlns:ex\"
 Setting this variable has no effect unless both
 `*namespace-processing*' and `*include-xmlns-attributes*' are non-nil.")
 
-
 ;;;; ATTRIBUTE
 
 (defstruct (standard-attribute (:constructor make-attribute))

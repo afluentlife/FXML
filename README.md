@@ -73,6 +73,7 @@ New features:
 - A [streaming sanitizer](sanitize/README.md) (system `fxml/sanitize`).
 - Integration with [cl-html5-parser][] (system `fxml/html5`).
 - Integration with [css-selectors][] (system `fxml/css-selectors`).
+- Can write standalone="yes" in xml declaration.
 
 Removed features:
 - FXML does not support HAX.
