@@ -1,0 +1,61 @@
+#+ TITLE: FXML Examples
+
+#+begin_src lisp
+  (fxml:with-xml-output
+      (fxml:make-string-sink :omit-xml-declaration t)
+    (fxml:with-element "no-xml-declaration"))
+#+end_src
+
+#+RESULTS:
+: <no-xml-declaration/>
+
+#+begin_src lisp
+  (defpackage :fxml-play
+    (:use :cl))
+#+end_src
+
+#+RESULTS:
+: #<PACKAGE "FXML-PLAY">
+
+#+BEGIN_SRC lisp
+    (fxml:with-xml-output
+        (fxml:make-string-sink)
+      (fxml:with-element "standalone"))
+#+END_SRC
+
+#+RESULTS:
+: <?xml version="1.0" encoding="UTF-8"?>
+: <standalone/>
+
+#+begin_src lisp
+  (fxml:with-xml-output
+      (fxml:make-string-sink :standalone t)
+    (fxml:with-element "default"))
+#+end_src
+
+#+RESULTS:
+: <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+: <default/>
+
+#+begin_src lisp
+  (fxml:with-xml-output
+      (fxml:make-string-sink :indentation 2)
+    (fxml:with-namespace ("" "http://www.w3.org/1999/xhtml")
+      (fxml:doctype "html" nil nil)
+      (fxml:with-element "html"
+        (fxml:with-element "head"
+          (fxml:with-element "title"
+            (fxml:text "Basic XHTML")))
+        (fxml:with-element "body"
+          (fxml:text "basic xhtml")))))
+#+end_src
+
+#+RESULTS:
+: <?xml version="1.0" encoding="UTF-8"?>
+: <!DOCTYPE html>
+: <html xmlns="http://www.w3.org/1999/xhtml">
+:   <head>
+:     <title>Basic XHTML</title>
+:   </head>
+:   <body>basic xhtml</body>
+: </html>

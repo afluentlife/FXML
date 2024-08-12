@@ -225,6 +225,8 @@ you can do it in one pass:
                                          (get-output-stream-string text))))))
       ...)
 
+# Sink With :STANDALONE
+
 `:standalone` is a new parameter for a sink.
 
 ```common-lisp
