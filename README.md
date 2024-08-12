@@ -225,25 +225,29 @@ you can do it in one pass:
                                          (get-output-stream-string text))))))
       ...)
 
-':standalone` is a new parameter for a sink.
+`:standalone` is a new parameter for a sink.
 
-```
+```common-lisp
 (fxml:with-xml-output
     (fxml:make-string-sink :standalone t)
   (fxml:with-element "standalone"))
 ```
 outputs:
+```
 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 <standalone/>"
-
 ```
+
+```common-lisp
 (fxml:with-xml-output
     (fxml:make-string-sink)
   (fxml:with-element "without-standalone"))
 ```
 outputs:
+```
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <without-standalone/>"
+```
 
 [CXML]: http://common-lisp.net/project/cxml/
 [defusedxml]: https://pypi.python.org/pypi/defusedxml
