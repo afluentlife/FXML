@@ -1,4 +1,4 @@
-#+ TITLE: FXML Examples
+#+ TITLE: FXML Examples From AFluentLife
 
 #+begin_src lisp
   (fxml:with-xml-output
