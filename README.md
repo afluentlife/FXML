@@ -73,7 +73,7 @@ New features:
 - A [streaming sanitizer](sanitize/README.md) (system `fxml/sanitize`).
 - Integration with [cl-html5-parser][] (system `fxml/html5`).
 - Integration with [css-selectors][] (system `fxml/css-selectors`).
-- Can write standalone="yes" in xml declaration.
+- Sinks can write `standalone="yes"` in xml declaration.
 
 Removed features:
 - FXML does not support HAX.
@@ -224,6 +224,26 @@ you can do it in one pass:
                         :end-document (λ ()
                                          (get-output-stream-string text))))))
       ...)
+
+':standalone` is a new parameter for a sink.
+
+```
+(fxml:with-xml-output
+    (fxml:make-string-sink :standalone t)
+  (fxml:with-element "standalone"))
+```
+outputs:
+"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
+<standalone/>"
+
+```
+(fxml:with-xml-output
+    (fxml:make-string-sink)
+  (fxml:with-element "without-standalone"))
+```
+outputs:
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<without-standalone/>"
 
 [CXML]: http://common-lisp.net/project/cxml/
 [defusedxml]: https://pypi.python.org/pypi/defusedxml
